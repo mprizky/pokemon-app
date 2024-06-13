@@ -1,0 +1,9 @@
+{
+    "nama": "Rizky Maulana Putra",
+    "umur": 30,
+    "alamat": {
+        "jalan": "Jl. Contoh",
+        "kota": "Jakarta"
+    },
+    "hobi": ["coding", "renang", "photography"]
+}

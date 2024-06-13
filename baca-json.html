@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Reader</title>
+</head>
+<body>
+    <h1>JSON Reader</h1>
+
+    <table>
+        <tr>
+            <td>Nama</td>
+            <td>:</td>
+            <td id="nama"></td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>:</td>
+            <td id="alamat"></td>
+        </tr>
+        <tr>
+            <td>Hobi</td>
+            <td>:</td>
+            <td id="hobi"></td>
+        </tr>
+    </table>
+
+    <script>
+        fetch('./contoh.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            });
+    </script>
+
+</body>
+</html>

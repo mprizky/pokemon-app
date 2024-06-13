@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asynchronous</title>
+</head>
+<body>
+    
+    <script>
+        /*
+            asynchronous    ==> 
+            - memungkinkan eksekusi kode program tidak selalu berdasarkan urutan baris kode program
+            - eksekusinya dilakukan berdasarkan WAKTU PROSES
+
+            asynchronous    ==> non-blocking    ==> tidak mem-blocking atau menunggu eksekusi baris sebelumnya selesai.. dri pada menunggu, asynchronous akan mengeksekusi perintah selanjutnya
+
+            contoh built-in function javascript yang bersifat asynchronous adalah setTimeout dan setInterval
+        */
+
+        console.log('Halo.. ');
+        
+        // eksekusi setelah 2 detik waktu berlalu..
+        setTimeout(function () {
+            console.log('Hacktiv8.. ');
+        }, 2000);
+
+        // eksekusi setelah 0,1 detik waktu berlalu..
+        setTimeout(function () {
+            console.log('JavaScript.. ');
+        }, 100);
+
+        console.log('Coder.. ');
+
+    </script>
+</body>
+</html>

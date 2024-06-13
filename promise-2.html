@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+<body>
+    <h1>Promise</h1>
+
+    <script>
+        /*
+            promise adalah object javascript yang bisa punya 3 kemungkinan hasil ketika promise itu dibuat:
+            1. pending      ==> gantung, belum jelas apakah diterima atau ditolak
+            2. fulfilled    ==> resolve, janji / promise-nya ditepati
+            3. rejected     ==> reject, janji / promise-nya dilanggar
+
+
+            resolve     ==> ditangkap dengan then
+            reject     ==> ditangkap dengan catch
+
+
+        */
+
+
+        let janjian = new Promise((resolve, reject) => {
+            resolve('saya menantikannya..'); // ==> akan mengeksekusi yang then
+            // reject('hari hujan badai..'); // ==> akan mengeksekusi yang catch
+        });
+
+        janjian
+            .then(function(data) {
+                console.log('janjian ditepati..');
+                console.log(data);
+            })     // dieksekusi ketika resolve
+            .catch(function(err) {
+                console.log('janjian ditolak..');
+                console.log(err);
+            });   // dieksekusi ketika reject
+
+    </script>
+
+</body>
+</html>

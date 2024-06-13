@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback sebagai Injeksi Sebuah Function</title>
+</head>
+<body>
+
+    <script>
+
+        function calculate(param1, param2, callback) {
+            //default operation
+            let result = param1 + param2;
+
+            //callback is a function?
+            if(typeof callback === 'function') {
+                result = callback(param1, param2);
+            }
+            return result;
+        }
+
+        function perkalian (x, y) {
+            return `Rp ${x * y}`;
+        }
+
+        function pembagian (x, y) {
+            return `Rp ${x / y}`;
+        }
+
+
+
+        // call function calculate 
+        let resultA = calculate(2000, 4000, function(x, y) { return `$ ${x + y}`; });
+
+        let resultB = calculate(7000, 2000, function(x, y) { return `Rp ${x * y}`; });
+
+
+        // ini merupakan cara lain (harus membuat function terlebih dahulu)
+        let resultC = calculate(7000, 2000, perkalian);
+
+        let resultD = calculate(7000, 2000, pembagian);
+
+
+
+        console.log(resultA);
+        console.log(resultB);
+        console.log(resultC);
+        console.log(resultD);
+
+        // console.log(resultA, resultB);
+
+    </script>
+    
+</body>
+</html>

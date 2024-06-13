@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Pokemon App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" integrity="sha512-jnSuA4Ss2PkkikSOLtYs8BlYIeeIK1h99ty4YfvRPAlzr377vr3CXDb7sb7eEEBYjDtcYj+AjBH3FLv5uSJuXg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    
+    <h1>Simple Pokemon App</h1>
+
+    <div class="row" id="pokemon-list">
+        
+    </div>
+
+    <div id="btn-wrapper">
+        <button class="btn btn-primary" id="btn-prev" disabled>< Prev</button> &nbsp; 
+        <button class="btn btn-primary" id="btn-next"> Next > </button> 
+    </div>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+
+            let currentPage = 1;
+            let btnPrev = document.getElementById('btn-prev');
+            let btnNext = document.getElementById('btn-next');
+            let pokemonList = document.getElementById('pokemon-list');
+
+            fetchPokemon(currentPage);
+
+            
+            function fetchPokemon (page) {
+                console.log(page);
+                pokemonList.innerHTML = '';
+
+                // ambil data dari PokeAPI 
+                fetch(`https://pokeapi.co/api/v2/pokemon?offset=${(page-1) * 20}&limit=20`)
+                    .then(res => res.json())
+                    .then(res => {
+                        let data = res.results;
+                        console.log(data);
+
+                        data.forEach(resp => {
+
+                            fetch(`${resp.url}`)
+                                .then(res => res.json())
+                                .then(res => {
+                                    let data = res.results;
+                                    console.log(data);
+
+                                    let card = document.createElement('div');
+                                    card.className = 'col-md-4 mb-4 card';
+
+                                    let img = document.createElement('img');
+                                    img.src =`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${resp.url.split('/')[6]}.png`;
+                                    
+                                    let cardBody = document.createElement('div');
+                                    cardBody.className = 'card-body';
+                                    
+                                    let cardTitle = document.createElement('h5');
+                                    cardTitle.className = 'card-title';
+                                    cardTitle.textContent = resp.name;
+
+                                    cardBody.appendChild(img);
+                                    cardBody.appendChild(cardTitle);
+                                    card.appendChild(cardBody);
+                                    pokemonList.append(card);
+                                });
+
+                            
+                        });
+
+
+
+
+
+                        
+                        
+                        // data.forEach(response => {
+                        //     let list = document.createElement('li');
+                        //     list.textContent = response.name;
+                        //     listWrapper.appendChild(list);
+                        // });
+                    });
+            }
+
+            // handle button prev click 
+            btnPrev.addEventListener('click', () => {
+                console.log(currentPage);
+                currentPage--;
+
+                if (currentPage === 1) {
+                    btnPrev.setAttribute('disabled', true);
+                }
+
+
+            });
+
+            // handle button next click 
+            btnNext.addEventListener('click', () => {
+                currentPage++;
+                console.log(currentPage);
+                
+                fetchPokemon(currentPage);
+
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Callback</title>
+</head>
+<body>
+    <h1>Callback</h1>
+
+    <script>
+        function main (param1, param2, tes) {
+            console.log(param1, param2);
+            tes();
+        }
+
+        function myTes() {
+            console.log('hello callback..');
+        }
+
+        // memanggil function main, dengan parameter ke-3 nya adalah function (myCallback)
+        main(1, 2, myTes);
+
+    </script>
+</body>
+</html>
