@@ -9,15 +9,17 @@
 </head>
 <body>
     
-    <h1>Simple Pokemon App</h1>
+    <div class="container">
+        <h1>Simple Pokemon App</h1>
 
-    <div class="row" id="pokemon-list">
-        
-    </div>
+        <div class="row" id="pokemon-list">
+            
+        </div>
 
-    <div id="btn-wrapper">
-        <button class="btn btn-primary" id="btn-prev" disabled>< Prev</button> &nbsp; 
-        <button class="btn btn-primary" id="btn-next"> Next > </button> 
+        <div id="btn-wrapper">
+            <button class="btn btn-primary" id="btn-prev" disabled>< Prev</button> &nbsp; 
+            <button class="btn btn-primary" id="btn-next"> Next > </button> 
+        </div>
     </div>
 
     <script>
@@ -52,20 +54,36 @@
                                     console.log(data);
 
                                     let card = document.createElement('div');
-                                    card.className = 'col-md-4 mb-4 card';
+                                    card.className = 'col-md-4 mr-1 mb-4 card';
 
                                     let img = document.createElement('img');
+                                    img.className = "text-center";
                                     img.src =`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${resp.url.split('/')[6]}.png`;
+
+                                    
                                     
                                     let cardBody = document.createElement('div');
                                     cardBody.className = 'card-body';
                                     
+                                    let types = document.createElement('p');
+                                    types.textContent = 'Type(s): ' + res.types.map(type => (type.type.name)).join(', ');
+
+                                    let stat = document.createElement('p');
+                                    res.stats.forEach((el) => {
+                                        stat.innerHTML += `${el.stat.name}: ${el.base_stat}<br/>`;
+                                    });
+
+                                    
                                     let cardTitle = document.createElement('h5');
                                     cardTitle.className = 'card-title';
-                                    cardTitle.textContent = resp.name;
+                                    cardTitle.textContent = resp.name.toUpperCase();
 
                                     cardBody.appendChild(img);
                                     cardBody.appendChild(cardTitle);
+                                    cardBody.appendChild(types);
+                                    cardBody.appendChild(stat);
+
+
                                     card.appendChild(cardBody);
                                     pokemonList.append(card);
                                 });
@@ -92,10 +110,8 @@
                 console.log(currentPage);
                 currentPage--;
 
-                if (currentPage === 1) {
-                    btnPrev.setAttribute('disabled', true);
-                }
-
+                fetchPokemon(currentPage);
+                updateButtonState();
 
             });
 
@@ -105,9 +121,19 @@
                 console.log(currentPage);
                 
                 fetchPokemon(currentPage);
+                updateButtonState();
 
 
             });
+
+            function updateButtonState () {
+                if (currentPage === 1) {
+                    btnPrev.setAttribute('disabled', true);
+                }
+                else {
+                    btnPrev.removeAttribute('disabled');
+                }
+            }
 
         });
 
